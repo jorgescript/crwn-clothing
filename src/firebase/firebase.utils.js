@@ -12,6 +12,26 @@ const config = {
   appId: "1:774856137282:web:836b4db6cf120151e7ebdb",
 };
 
+/* funcion para guardar el usuario en la BD */
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+  if (!userAuth) return;
+  // console.log({ userAuth });
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+  // console.log({ userRef });
+  const snapshot = await userRef.get();
+  // console.log({ snapshot });
+  if (!snapshot.exists) {
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+    try {
+      await userRef.set({ displayName, email, createdAt, ...additionalData });
+    } catch (error) {
+      console.log(`Error creating user ${error.message}`);
+    }
+  }
+  return userRef;
+};
+
 firebase.initializeApp(config);
 
 export const auth = firebase.auth();
