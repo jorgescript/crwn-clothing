@@ -3,6 +3,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 /* firebase */
 import { auth } from "./../../firebase/firebase.utils";
+/* react-redux */
+import { connect } from "react-redux";
 /* estilos */
 import "./header.styles.scss";
 import { ReactComponent as Logo } from "./../../assets/crown.svg";
@@ -20,7 +22,7 @@ const Header = ({ currentUser }) => (
         CONTACT
       </Link>
       {currentUser ? (
-        <Link className="option" to="/signin" onClick={() => auth.signOut()}>
+        <Link className="option" to="#" onClick={() => auth.signOut()}>
           LOG OUT
         </Link>
       ) : (
@@ -32,4 +34,9 @@ const Header = ({ currentUser }) => (
   </div>
 );
 
-export default Header;
+/* traesr propiedades del estado */
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+});
+
+export default connect(mapStateToProps)(Header);
