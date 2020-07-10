@@ -1,6 +1,6 @@
 import React from "react";
 /* react-router-dom */
-import { Route, Switch, redirect, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 /* firebase */
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 /* react-redux */

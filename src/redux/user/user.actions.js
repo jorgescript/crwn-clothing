@@ -1,4 +1,4 @@
-/* action types */
+/* user action types */
 import UserActionTypes from "./user.types";
 
 export const setCurrentUser = (user) => ({
