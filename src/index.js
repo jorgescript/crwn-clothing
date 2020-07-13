@@ -3,7 +3,9 @@ import ReactDOM from "react-dom";
 /* react-redux */
 import { Provider } from "react-redux";
 /* store */
-import store from "./redux/store";
+import { store, persistor } from "./redux/store";
+/* redux-persist */
+import { PersistGate } from "redux-persist/integration/react";
 /* react-router-dom */
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
@@ -14,7 +16,9 @@ ReactDOM.render(
     {/* Nos da acceso al store en toda la aplicacion */}
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <PersistGate persistor={persistor}>
+          <App />
+        </PersistGate>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,
