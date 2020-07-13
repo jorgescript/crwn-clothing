@@ -7,11 +7,18 @@ import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { connect } from "react-redux";
 /* actions */
 import { setCurrentUser } from "./redux/user/user.actions";
+/* reselect */
+import { createStructuredSelector } from "reselect";
+import { selectCurrentUser } from "./redux/user/user.selectors";
+
 /* componentes */
 import Header from "./components/header/header.component";
 import HomePage from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shop/shop.component";
 import SignInAndSignUp from "./pages/sign-in-sign-up/sign-in-and-sign-up.component";
+import checkoutPage from "./pages/cheackout/checkout.component";
+
+/* estilos */
 import "./App.css";
 
 class App extends React.Component {
@@ -45,6 +52,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
+          <Route path="/checkout" component={checkoutPage} />
           <Route
             exact
             path="/signin"
@@ -59,8 +67,8 @@ class App extends React.Component {
 }
 
 /* traer propiedades del estado */
-const mapStateToProps = (state) => ({
-  currentUser: state.user.currentUser,
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
 });
 
 /* enviar datos al estado */
