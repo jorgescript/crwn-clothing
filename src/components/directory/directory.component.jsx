@@ -7,14 +7,14 @@ import { selectDirectoySections } from "./../../redux/directory/directory.select
 /* componentes */
 import MenuItem from "./../menu-item/menu-item.component";
 /* estilos */
-import "./directory.styles.scss";
+import { DirectoryContainer } from "./directory.styles";
 
 const Directory = ({ sections }) => (
-  <div className="directory-menu">
+  <DirectoryContainer>
     {sections.map(({ id, ...otherProps }) => (
       <MenuItem key={id} {...otherProps} />
     ))}
-  </div>
+  </DirectoryContainer>
 );
 
 const mapStateToProps = createStructuredSelector({

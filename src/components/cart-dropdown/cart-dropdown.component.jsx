@@ -11,20 +11,25 @@ import { selectCartItems } from "./../../redux/cart/cart.selectors";
 import CustomButton from "./../custom-button/custom-button.component";
 import CartItem from "./../cart-item/cart-item.component";
 /* estilos */
-import "./cart-dropdown.styles.scss";
+import {
+  CartDropdownContainer,
+  CartItemsContainer,
+  EmptyMessageContainer,
+  CartDropdownButton,
+} from "./cart-dropdown.styles";
 
 const CartDropdown = ({ cartItems, history, dispatch }) => (
-  <div className="cart-dropdown">
-    <div className="cart-items">
+  <CartDropdownContainer>
+    <CartItemsContainer>
       {cartItems.length ? (
         cartItems.map((cartItem) => (
           <CartItem key={cartItem.id} cartItem={cartItem} />
         ))
       ) : (
-        <span className="empty-message">Your cart is empty</span>
+        <EmptyMessageContainer>Your cart is empty</EmptyMessageContainer>
       )}
-    </div>
-    <CustomButton
+    </CartItemsContainer>
+    <CartDropdownButton
       inverted
       onClick={() => {
         history.push("/checkout");
@@ -33,8 +38,8 @@ const CartDropdown = ({ cartItems, history, dispatch }) => (
       }}
     >
       GO TO CHECKOUT
-    </CustomButton>
-  </div>
+    </CartDropdownButton>
+  </CartDropdownContainer>
 );
 
 const mapStateToProps = createStructuredSelector({
