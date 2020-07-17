@@ -3,8 +3,6 @@ import React from "react";
 import { connect } from "react-redux";
 /* actions */
 import { addItem } from "./../../redux/cart/cart.actions";
-/* componentes */
-import CustomButton from "./../custom-button/custom-button.component";
 /* estilos */
 import {
   CollectionItemContainer,

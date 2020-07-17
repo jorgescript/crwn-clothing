@@ -2,7 +2,11 @@ import React from "react";
 /* react-router-dom */
 import { Route, Switch, Redirect } from "react-router-dom";
 /* firebase */
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import {
+  auth,
+  createUserProfileDocument,
+  addCollectionsAndDocuments,
+} from "./firebase/firebase.utils";
 /* react-redux */
 import { connect } from "react-redux";
 /* actions */
@@ -10,6 +14,8 @@ import { setCurrentUser } from "./redux/user/user.actions";
 /* reselect */
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "./redux/user/user.selectors";
+
+import { selectCollectionsOverview } from "./redux/shop/shop.selectors";
 
 /* componentes */
 import Header from "./components/header/header.component";
@@ -25,7 +31,7 @@ class App extends React.Component {
   unsuscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser } = this.props;
+    const { setCurrentUser, collectionsArray } = this.props;
     this.unsuscribeFromAuth = auth.onAuthStateChanged(async (userAut) => {
       if (userAut) {
         const userRef = await createUserProfileDocument(userAut);
@@ -36,6 +42,10 @@ class App extends React.Component {
         });
       } else {
         setCurrentUser(null);
+        /* addCollectionsAndDocuments(
+          "collections",
+          collectionsArray.map(({ title, items }) => ({ title, items }))
+        ); */
       }
     });
   }
@@ -69,6 +79,7 @@ class App extends React.Component {
 /* traer propiedades del estado */
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
+  collectionsArray: selectCollectionsOverview,
 });
 
 /* enviar datos al estado */
