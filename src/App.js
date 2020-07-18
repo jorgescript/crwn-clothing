@@ -5,7 +5,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import {
   auth,
   createUserProfileDocument,
-  addCollectionsAndDocuments,
+  /* addCollectionsAndDocuments, */
 } from "./firebase/firebase.utils";
 /* react-redux */
 import { connect } from "react-redux";
@@ -31,7 +31,7 @@ class App extends React.Component {
   unsuscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser, collectionsArray } = this.props;
+    const { setCurrentUser /* collectionsArray */ } = this.props;
     this.unsuscribeFromAuth = auth.onAuthStateChanged(async (userAut) => {
       if (userAut) {
         const userRef = await createUserProfileDocument(userAut);
