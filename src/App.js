@@ -1,16 +1,10 @@
 import React from "react";
 /* react-router-dom */
 import { Route, Switch, Redirect } from "react-router-dom";
-/* firebase */
-import {
-  auth,
-  createUserProfileDocument,
-  /* addCollectionsAndDocuments, */
-} from "./firebase/firebase.utils";
 /* react-redux */
 import { connect } from "react-redux";
 /* actions */
-import { setCurrentUser } from "./redux/user/user.actions";
+import { checkUserSeesion } from "./redux/user/user.actions";
 /* reselect */
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "./redux/user/user.selectors";
@@ -31,23 +25,8 @@ class App extends React.Component {
   unsuscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser /* collectionsArray */ } = this.props;
-    this.unsuscribeFromAuth = auth.onAuthStateChanged(async (userAut) => {
-      if (userAut) {
-        const userRef = await createUserProfileDocument(userAut);
-        userRef.onSnapshot((snapShot) => {
-          setCurrentUser({
-            currentUser: { id: snapShot.id, ...snapShot.data() },
-          });
-        });
-      } else {
-        setCurrentUser(null);
-        /* addCollectionsAndDocuments(
-          "collections",
-          collectionsArray.map(({ title, items }) => ({ title, items }))
-        ); */
-      }
-    });
+    const { checkUserSeesion } = this.props;
+    checkUserSeesion();
   }
 
   componentWillUnmount() {
@@ -76,15 +55,13 @@ class App extends React.Component {
   }
 }
 
-/* traer propiedades del estado */
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   collectionsArray: selectCollectionsOverview,
 });
 
-/* enviar datos al estado */
 const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  checkUserSeesion: () => dispatch(checkUserSeesion()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
