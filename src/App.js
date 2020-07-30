@@ -19,7 +19,7 @@ import SignInAndSignUp from "./pages/sign-in-sign-up/sign-in-and-sign-up.compone
 import checkoutPage from "./pages/cheackout/checkout.component";
 
 /* estilos */
-import "./App.css";
+import { GloblaStyles } from "./global.styles";
 
 const App = ({ checkUserSeesion, currentUser }) => {
   /* useEfect */
@@ -29,6 +29,7 @@ const App = ({ checkUserSeesion, currentUser }) => {
 
   return (
     <div>
+      <GloblaStyles />
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
