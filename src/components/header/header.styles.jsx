@@ -35,7 +35,6 @@ export const OptionsContainer = styled.div`
     flex: 1;
     width: 100%;
     justify-content: space-between;
-    border-bottom: 2px solid #000000;
   }
 `;
 
